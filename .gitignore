@@ -47,3 +47,4 @@ frontend/tsconfig.tsbuildinfo
 # ── Misc ──
 .vercel
 .turbo
+.github/workflows/
