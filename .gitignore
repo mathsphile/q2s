@@ -1,3 +1,6 @@
+# ── GitHub Actions (requires workflow scope PAT to push) ──
+.github/workflows/
+
 # ── Dependencies ──
 node_modules/
 .pnp
