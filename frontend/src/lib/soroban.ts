@@ -179,12 +179,33 @@ export async function callContract(
 
 /**
  * Read-only contract call — uses simulation only, no signing needed.
- *
- * @param contractId  The deployed contract address
- * @param method      The contract function name
- * @param args        Array of xdr.ScVal arguments
- * @returns The parsed return value from the simulation
  */
+
+// Cache the read-only account to avoid an RPC call per read
+let _readAccount: Account | null = null;
+let _readAccountTimestamp = 0;
+const READ_ACCOUNT_TTL = 60_000; // 1 minute
+
+async function getReadAccount(): Promise<Account> {
+  if (_readAccount && Date.now() - _readAccountTimestamp < READ_ACCOUNT_TTL) {
+    return _readAccount;
+  }
+
+  const sourceKey =
+    process.env.NEXT_PUBLIC_DEPLOYER_PUBLIC_KEY ??
+    'GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWHF';
+
+  try {
+    const server = getServer();
+    const rpcAccount = await server.getAccount(sourceKey);
+    _readAccount = new Account(rpcAccount.accountId(), rpcAccount.sequenceNumber());
+  } catch {
+    _readAccount = new Account(sourceKey, '0');
+  }
+  _readAccountTimestamp = Date.now();
+  return _readAccount;
+}
+
 export async function readContract(
   contractId: string,
   method: string,
@@ -192,20 +213,7 @@ export async function readContract(
 ): Promise<xdr.ScVal | undefined> {
   const server = getServer();
   const contract = new Contract(contractId);
-
-  // Use the deployer key as a read-only source account
-  const sourceKey =
-    process.env.NEXT_PUBLIC_DEPLOYER_PUBLIC_KEY ??
-    'GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWHF';
-
-  let account: Account;
-  try {
-    const rpcAccount = await server.getAccount(sourceKey);
-    account = new Account(rpcAccount.accountId(), rpcAccount.sequenceNumber());
-  } catch {
-    // If the account doesn't exist on-chain, create a minimal Account object
-    account = new Account(sourceKey, '0');
-  }
+  const account = await getReadAccount();
 
   const tx = new TransactionBuilder(account, {
     fee: BASE_FEE,

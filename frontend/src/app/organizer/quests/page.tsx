@@ -9,7 +9,6 @@ import Modal from '@/components/ui/Modal';
 import Skeleton from '@/components/ui/Skeleton';
 import { useWallet } from '@/contexts/WalletContext';
 import { listQuests, transitionState, type OnChainQuest, type QuestState } from '@/lib/quest-client';
-import { fundQuest, getBountyPool, type BountyPool } from '@/lib/treasury-client';
 import { formatNumber, formatDate } from '@/lib/format';
 
 // ---------------------------------------------------------------------------
@@ -38,7 +37,6 @@ const stateBadgeVariant: Record<QuestState, 'success' | 'warning' | 'error' | 'i
 export default function OrganizerQuestsPage() {
   const { address, connected, connect, connecting } = useWallet();
   const [quests, setQuests] = useState<OnChainQuest[]>([]);
-  const [pools, setPools] = useState<Record<number, BountyPool>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [actionTarget, setActionTarget] = useState<OnChainQuest | null>(null);
@@ -56,17 +54,6 @@ export default function OrganizerQuestsPage() {
         ? allQuests.filter((q) => q.organizer === address)
         : allQuests;
       setQuests(myQuests);
-
-      // Load bounty pools for non-Draft quests
-      const poolMap: Record<number, BountyPool> = {};
-      const poolPromises = myQuests
-        .filter((q) => q.state !== 'Draft')
-        .map(async (q) => {
-          const pool = await getBountyPool(q.id);
-          if (pool) poolMap[q.id] = pool;
-        });
-      await Promise.all(poolPromises);
-      setPools(poolMap);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load quests from chain');
     } finally {
@@ -98,8 +85,11 @@ export default function OrganizerQuestsPage() {
     setActionError('');
     try {
       if (actionType === 'fund') {
-        // Fund the quest via Treasury, then transition Draft → Active
-        await fundQuest(actionTarget.id, address, Number(actionTarget.reward_amount));
+        // Send XLM to escrow, then transition Draft → Active
+        const { sendXlmPayment, ESCROW_ADDRESS } = await import('@/lib/soroban');
+        if (ESCROW_ADDRESS) {
+          await sendXlmPayment(address, ESCROW_ADDRESS, Number(actionTarget.reward_amount));
+        }
         await transitionState(actionTarget.id, address, 'Active');
       } else if (actionType === 'review') {
         await transitionState(actionTarget.id, address, 'InReview');
@@ -213,7 +203,6 @@ export default function OrganizerQuestsPage() {
       {!loading && !error && quests.length > 0 && (
         <div className="space-y-4">
           {quests.map((quest) => {
-            const pool = pools[quest.id];
             const deadlineStr = new Date(quest.deadline * 1000).toISOString();
             return (
               <Card key={quest.id}>
@@ -240,20 +229,20 @@ export default function OrganizerQuestsPage() {
                   <div className="rounded-lg bg-gray-50 p-3">
                     <p className="text-xs font-medium text-gray-500">Total Funded</p>
                     <p className="text-sm font-semibold text-foreground">
-                      {formatNumber(Number(pool?.total_funded ?? 0))} XLM
+                      {formatNumber(Number(quest.reward_amount ?? 0))} XLM
                     </p>
                   </div>
                   <div className="rounded-lg bg-gray-50 p-3">
                     <p className="text-xs font-medium text-gray-500">Distributed</p>
                     <p className="text-sm font-semibold text-foreground">
-                      {formatNumber(Number(pool?.distributed ?? 0))} XLM
+                      {formatNumber(Number(0))} XLM
                     </p>
                   </div>
                   <div className="rounded-lg bg-gray-50 p-3">
                     <p className="text-xs font-medium text-gray-500">Remaining</p>
                     <p className="text-sm font-semibold text-foreground">
                       {formatNumber(
-                        Number((pool?.total_funded ?? 0) - (pool?.distributed ?? 0)),
+                        Number(quest.reward_amount ?? 0),
                       )} XLM
                     </p>
                   </div>

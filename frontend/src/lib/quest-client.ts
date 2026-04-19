@@ -251,142 +251,131 @@ export async function rejectSubmission(
 // ── Quest cache ────────────────────────────────────────────────────────
 
 let _questCache: { quests: OnChainQuest[]; timestamp: number } | null = null;
-const CACHE_TTL_MS = 30_000; // 30 seconds
+let _submissionCache: Map<number, { subs: OnChainSubmission[]; timestamp: number }> = new Map();
+const CACHE_TTL_MS = 60_000; // 60 seconds
+const SUB_CACHE_TTL_MS = 30_000; // 30 seconds
 
-/**
- * Invalidate the quest cache. Call after any write operation so the next
- * read fetches fresh data from the chain.
- */
+// Persist known quest counter in localStorage for instant startup
+const COUNTER_KEY = 'quest_stellar_counter';
+
+function getSavedCounter(): number {
+  try { return parseInt(localStorage.getItem(COUNTER_KEY) ?? '0', 10) || 0; } catch { return 0; }
+}
+function saveCounter(n: number) {
+  try { localStorage.setItem(COUNTER_KEY, String(n)); } catch { /* SSR */ }
+}
+
 export function invalidateQuestCache(): void {
   _questCache = null;
+  _submissionCache.clear();
 }
 
 // ── Read-only operations ───────────────────────────────────────────────
 
-/**
- * Get a single quest by ID from the chain.
- */
 export async function getQuest(questId: number): Promise<OnChainQuest | null> {
   try {
-    const result = await readContract(QUEST_CONTRACT_ID, 'get_quest', [
-      toU64(questId),
-    ]);
-
+    const result = await readContract(QUEST_CONTRACT_ID, 'get_quest', [toU64(questId)]);
     if (!result) return null;
-
     const native = scValToNative(result);
     if (!native) return null;
-
     return parseQuest(native as Record<string, unknown>);
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 }
 
 /**
- * Get the current quest counter (total number of quests created).
- *
- * Uses exponential probing (1, 2, 4, 8, 16…) to find an upper bound,
- * then binary searches for the exact count. This reduces the number of
- * RPC simulations from N to ~2·log₂(N).
+ * Fast quest counter: starts from the last known value and probes forward.
+ * Only makes 1-2 RPC calls in the common case (no new quests since last visit).
  */
 async function getQuestCounter(): Promise<number> {
-  // Phase 1: exponential probe to find an upper bound
-  let probe = 1;
-  while (probe <= 1024) {
-    const quest = await getQuest(probe);
-    if (!quest) break;
-    probe *= 2;
-  }
+  const saved = getSavedCounter();
 
-  // If even ID 1 doesn't exist, there are no quests
-  if (probe === 1) {
-    const first = await getQuest(1);
-    if (!first) return 0;
-  }
-
-  // Phase 2: binary search between last-known-good and first-known-bad
-  let lo = Math.max(1, probe / 2); // last ID that existed (or 1)
-  let hi = probe; // first ID that didn't exist
-
-  while (lo < hi) {
-    const mid = Math.floor((lo + hi) / 2);
-    const quest = await getQuest(mid);
-    if (quest) {
-      lo = mid + 1;
-    } else {
-      hi = mid;
+  // Check if there are quests beyond the saved counter
+  const next = await getQuest(saved + 1);
+  if (!next) {
+    // No new quests — verify saved is still valid
+    if (saved > 0) {
+      const last = await getQuest(saved);
+      if (last) return saved;
     }
+    // Check if there are any quests at all
+    const first = await getQuest(1);
+    if (!first) { saveCounter(0); return 0; }
+    // Saved was wrong, do a quick scan
   }
 
-  // lo is now the first ID that doesn't exist → count = lo - 1
-  return lo - 1;
+  // There are new quests — scan forward from saved
+  let count = Math.max(saved, 0);
+  let id = count + 1;
+  while (id <= count + 100) { // safety limit
+    const quest = await getQuest(id);
+    if (!quest) break;
+    count = id;
+    id++;
+  }
+
+  saveCounter(count);
+  return count;
 }
 
 /**
- * List all quests from the chain. Results are cached for 30 seconds to
- * avoid redundant RPC simulations on rapid re-renders.
+ * List all quests. Uses aggressive caching and parallel fetching.
  */
 export async function listQuests(): Promise<OnChainQuest[]> {
-  // Return cached data if still fresh
   if (_questCache && Date.now() - _questCache.timestamp < CACHE_TTL_MS) {
     return _questCache.quests;
   }
 
   const maxId = await getQuestCounter();
-
-  // Fetch all quests in parallel for better performance
-  const promises: Promise<OnChainQuest | null>[] = [];
-  for (let id = 1; id <= maxId; id++) {
-    promises.push(getQuest(id));
+  if (maxId === 0) {
+    _questCache = { quests: [], timestamp: Date.now() };
+    return [];
   }
 
-  const results = await Promise.all(promises);
+  // Fetch all in parallel (max 5 concurrent to avoid rate limiting)
   const quests: OnChainQuest[] = [];
-  for (const quest of results) {
-    if (quest) quests.push(quest);
+  const batchSize = 5;
+  for (let start = 1; start <= maxId; start += batchSize) {
+    const batch: Promise<OnChainQuest | null>[] = [];
+    for (let id = start; id < start + batchSize && id <= maxId; id++) {
+      batch.push(getQuest(id));
+    }
+    const results = await Promise.all(batch);
+    for (const q of results) { if (q) quests.push(q); }
   }
 
-  // Populate cache
   _questCache = { quests, timestamp: Date.now() };
-
   return quests;
 }
 
 /**
- * Get all submissions for a quest.
+ * Get submissions with caching.
  */
 export async function getSubmissions(questId: number): Promise<OnChainSubmission[]> {
+  const cached = _submissionCache.get(questId);
+  if (cached && Date.now() - cached.timestamp < SUB_CACHE_TTL_MS) {
+    return cached.subs;
+  }
+
   try {
-    const result = await readContract(QUEST_CONTRACT_ID, 'get_submissions', [
-      toU64(questId),
-    ]);
-
+    const result = await readContract(QUEST_CONTRACT_ID, 'get_submissions', [toU64(questId)]);
     if (!result) return [];
-
     const native = scValToNative(result);
     if (!Array.isArray(native)) return [];
-
-    return native.map((item: Record<string, unknown>) => parseSubmission(item));
-  } catch {
-    return [];
-  }
+    const subs = native.map((item: Record<string, unknown>) => parseSubmission(item));
+    _submissionCache.set(questId, { subs, timestamp: Date.now() });
+    return subs;
+  } catch { return []; }
 }
 
-/**
- * Get the state of a quest.
- */
 export async function getQuestState(questId: number): Promise<QuestState | null> {
-  try {
-    const result = await readContract(QUEST_CONTRACT_ID, 'get_quest_state', [
-      toU64(questId),
-    ]);
-
-    if (!result) return null;
-
-    const native = scValToNative(result);
-    return parseQuestState(native);
-  } catch {
-    return null;
+  // Use quest cache if available
+  if (_questCache) {
+    const cached = _questCache.quests.find(q => q.id === questId);
+    if (cached) return cached.state;
   }
+  try {
+    const result = await readContract(QUEST_CONTRACT_ID, 'get_quest_state', [toU64(questId)]);
+    if (!result) return null;
+    return parseQuestState(scValToNative(result));
+  } catch { return null; }
 }
