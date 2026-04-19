@@ -1,0 +1,49 @@
+# ── Dependencies ──
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+
+# ── Build outputs ──
+frontend/.next/
+frontend/out/
+backend/dist/
+contracts/target/
+
+# ── Environment files (contain secrets) ──
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env.local
+
+# ── IDE / Editor ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── OS files ──
+.DS_Store
+*.DS_Store
+
+# ── Debug / Logs ──
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# ── Testing ──
+coverage/
+.nyc_output/
+
+# ── TypeScript ──
+*.tsbuildinfo
+frontend/tsconfig.tsbuildinfo
+
+# ── Misc ──
+.vercel
+.turbo
