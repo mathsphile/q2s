@@ -51,3 +51,5 @@ frontend/tsconfig.tsbuildinfo
 .claude/
 skills-lock.json
 .github/workflows/
+.kiro/
+ci.yml
