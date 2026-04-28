@@ -47,7 +47,7 @@ frontend/tsconfig.tsbuildinfo
 # ── Misc ──
 .vercel
 .turbo
-.github/workflows/
 .agents/
 .claude/
 skills-lock.json
+.github/workflows/
