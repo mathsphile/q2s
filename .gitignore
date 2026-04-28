@@ -48,3 +48,6 @@ frontend/tsconfig.tsbuildinfo
 .vercel
 .turbo
 .github/workflows/
+.agents/
+.claude/
+skills-lock.json
