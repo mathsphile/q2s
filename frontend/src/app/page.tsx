@@ -155,40 +155,56 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Earnings Dashboard Mockup */}
+            {/* Organizer Dashboard Mockup */}
             <div className="mockup-frame-2 p-0 lg:mt-12">
               <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-4 py-2.5">
                 <div className="flex gap-1.5"><div className="h-3 w-3 rounded-full bg-red-400" /><div className="h-3 w-3 rounded-full bg-amber-400" /><div className="h-3 w-3 rounded-full bg-emerald-400" /></div>
-                <span className="ml-2 text-xs text-gray-400">Earnings &amp; Reputation</span>
+                <span className="ml-2 text-xs text-gray-400">Organizer Dashboard</span>
               </div>
               <div className="p-5 space-y-4">
                 <div className="grid grid-cols-4 gap-3">
                   {[
-                    { label: 'XLM Balance', value: '22,007' },
-                    { label: 'Total Earned', value: '13,258' },
-                    { label: 'Approved', value: '6' },
-                    { label: 'Pending', value: '0' },
+                    { label: 'Total Quests', value: '4', color: 'border-l-indigo-500' },
+                    { label: 'Active Quests', value: '1', color: 'border-l-emerald-500' },
+                    { label: 'Total Funded', value: '10,986', color: 'border-l-amber-500' },
+                    { label: 'Pending Subs', value: '0', color: 'border-l-cyan-500' },
                   ].map((s) => (
-                    <div key={s.label} className="rounded-lg border border-gray-100 bg-white p-3">
+                    <div key={s.label} className={`rounded-lg border border-gray-100 border-l-4 ${s.color} bg-white p-3`}>
                       <p className="text-[10px] text-gray-400">{s.label}</p>
                       <p className="text-lg font-bold text-gray-900">{s.value}</p>
                     </div>
                   ))}
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-gray-700 mb-2">Reputation</p>
-                  <div className="h-3 w-full rounded-full bg-gray-100">
-                    <div className="h-3 rounded-full bg-indigo-500" style={{ width: '60%' }} />
+                  <p className="text-xs font-semibold text-gray-700 mb-3">Quest Status</p>
+                  <div className="flex items-center justify-center gap-6">
+                    {/* Donut chart mockup */}
+                    <div className="relative">
+                      <div className="h-20 w-20 rounded-full" style={{ background: 'conic-gradient(#4f46e5 0% 25%, #10b981 25% 75%, #9ca3af 75% 100%)' }} />
+                      <div className="absolute inset-0 m-auto h-12 w-12 rounded-full bg-white flex items-center justify-center">
+                        <span className="text-sm font-bold text-gray-900">4</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1.5 text-[10px]">
+                      <div className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-indigo-600" /><span className="text-gray-600">Active</span><span className="font-semibold text-gray-900">1</span></div>
+                      <div className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-500" /><span className="text-gray-600">Completed</span><span className="font-semibold text-gray-900">2</span></div>
+                      <div className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-gray-400" /><span className="text-gray-600">Draft</span><span className="font-semibold text-gray-900">1</span></div>
+                    </div>
                   </div>
-                  <p className="text-[10px] text-gray-400 mt-1">6 approved · Experienced</p>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-gray-700 mb-2">Earning History</p>
+                  <p className="text-xs font-semibold text-gray-700 mb-2">Recent Quests</p>
                   <div className="space-y-2">
-                    {[{ quest: 'podde lathi', amount: '+195 XLM' }, { quest: 'zfsdfdsfsdfsdfsdf', amount: '+8,996 XLM' }].map((e) => (
-                      <div key={e.quest} className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
-                        <span className="text-xs text-gray-600">{e.quest}</span>
-                        <span className="text-xs font-semibold text-emerald-600">{e.amount}</span>
+                    {[
+                      { title: 'Promote Mantiup', status: 'Active', amount: '600 XLM', statusColor: 'bg-emerald-50 text-emerald-700' },
+                      { title: 'Design Logo v2', status: 'Completed', amount: '2,500 XLM', statusColor: 'bg-indigo-50 text-indigo-700' },
+                    ].map((q) => (
+                      <div key={q.title} className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
+                        <div className="flex items-center gap-2">
+                          <span className={`rounded-full px-1.5 py-0.5 text-[9px] font-medium ${q.statusColor}`}>{q.status}</span>
+                          <span className="text-xs text-gray-700">{q.title}</span>
+                        </div>
+                        <span className="text-xs text-gray-500">{q.amount}</span>
                       </div>
                     ))}
                   </div>
