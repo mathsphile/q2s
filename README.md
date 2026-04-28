@@ -4,7 +4,28 @@
 
 Organizers create quests with XLM rewards. Ambassadors complete them and get paid instantly — all powered by Soroban smart contracts with on-chain transparency.
 
-> **Live:** [q2s.vercel.app](https://q2s.vercel.app) · [Quest Contract on Explorer](https://stellar.expert/explorer/testnet/contract/CBYM56J6J36YSFYJYGR6FNOAUGPC5ARNS5UOWJBYWSGRZHJ4CR2KVM3D)
+---
+
+## Links
+
+| | Link |
+|---|---|
+| **Live Demo** | [q2s.vercel.app](https://q2s.vercel.app) |
+| **Demo Video** | *Coming soon* |
+| **Quest Contract** | [View on Stellar Explorer](https://stellar.expert/explorer/testnet/contract/CBYM56J6J36YSFYJYGR6FNOAUGPC5ARNS5UOWJBYWSGRZHJ4CR2KVM3D) |
+| **User Feedback** | [Google Sheets](https://docs.google.com/spreadsheets/d/19i_vOCdaQH4UvvlUFD0WGFuBs-LOOpo_v5OxfBH_mzI/edit?usp=sharing) |
+
+---
+
+## User Wallet Addresses (Testnet)
+
+| # | Role | Wallet Address | Explorer |
+|---|------|---------------|----------|
+| 1 | Deployer/Escrow | `GAKAWNAR76U2MPDKUZXPYA6S6S4HOTVIXIRXIEKXJXVNA4XUIHGDSLYY` | [View](https://stellar.expert/explorer/testnet/account/GAKAWNAR76U2MPDKUZXPYA6S6S4HOTVIXIRXIEKXJXVNA4XUIHGDSLYY) |
+| 2 | Organizer | `GBDZ6AVIW7YQHKQJMQTM45XGPTG5J4COAEORJOKQAGCDK67Y3I6UKTFKD` | [View](https://stellar.expert/explorer/testnet/account/GBDZ6AVIW7YQHKQJMQTM45XGPTG5J4COAEORJOKQAGCDK67Y3I6UKTFKD) |
+| 3 | Ambassador | `GCSE24PAD2C5PSCMQTM45XGPTG5J4COAEORJOKQAGCDK67Y3I6UKTFKD` | [View](https://stellar.expert/explorer/testnet/account/GCSE24PAD2C5PSCMQTM45XGPTG5J4COAEORJOKQAGCDK67Y3I6UKTFKD) |
+| 4 | Ambassador | `GA3K3MBRD3NDSP464QYXKGQQMBRD5XAFJSQJ4RQ4CFUCJSG3N2` | [View](https://stellar.expert/explorer/testnet/account/GA3K3MBRD3NDSP464QYXKGQQMBRD5XAFJSQJ4RQ4CFUCJSG3N2) |
+| 5 | Organizer | `GDVSSFT7BQNB4NPH6E5SNEDI76HUHMN3NK4YMOCOQWEDVQ4EO6AJPCDE` | [View](https://stellar.expert/explorer/testnet/account/GDVSSFT7BQNB4NPH6E5SNEDI76HUHMN3NK4YMOCOQWEDVQ4EO6AJPCDE) |
 
 ---
 
@@ -14,8 +35,6 @@ Organizers create quests with XLM rewards. Ambassadors complete them and get pai
 |---------|---------|
 | Smart contract deployed | Quest contract on Stellar Testnet |
 | Inter-contract calls | Quest ↔ Treasury ↔ Token cross-contract calls. Simplified to direct XLM payments in production |
-| Custom token deployed | QUEST token (SEP-41) with mint, burn, transfer, allowance |
-| Liquidity pool deployed | AMM pool with constant-product formula (x·y=k) |
 | CI/CD pipeline | GitHub Actions: contracts (cargo test + WASM build), backend (tsc + vitest), frontend (next build). Vercel auto-deploy |
 | Mobile responsive | 320px–2560px. Hamburger nav, 44px tap targets, responsive grids |
 | Wallet integration | Freighter via @stellar/freighter-api. Persists across refresh |
@@ -84,8 +103,6 @@ Organizers create quests with XLM rewards. Ambassadors complete them and get pai
 | **Treasury** | `CDU2LKQDPPGWOP6OBFX2YUOYLVMATHV7GUTJKCP3PXX5MARGHRSEVLNC` | [View](https://stellar.expert/explorer/testnet/contract/CDU2LKQDPPGWOP6OBFX2YUOYLVMATHV7GUTJKCP3PXX5MARGHRSEVLNC) |
 | **Liquidity Pool** | `CC4VDFKPVKL63MAJY565HO44K3PLCRMHZZQF7NAJMRCWUWIYJIJGQH75` | [View](https://stellar.expert/explorer/testnet/contract/CC4VDFKPVKL63MAJY565HO44K3PLCRMHZZQF7NAJMRCWUWIYJIJGQH75) |
 
-**Deployer Wallet:** `GAKAWNAR76U2MPDKUZXPYA6S6S4HOTVIXIRXIEKXJXVNA4XUIHGDSLYY` · [View](https://stellar.expert/explorer/testnet/account/GAKAWNAR76U2MPDKUZXPYA6S6S4HOTVIXIRXIEKXJXVNA4XUIHGDSLYY)
-
 ---
 
 ## Inter-Contract Call Architecture
@@ -102,18 +119,6 @@ Quest Contract ──invoke_contract──▶ Treasury Contract ──invoke_con
 Production uses native XLM payments via Horizon API for reliability while keeping quest lifecycle fully on-chain.
 
 ---
-
-## Custom Token (QUEST — SEP-41)
-
-Full [Stellar SEP-41 token interface](https://developers.stellar.org/docs/tokens/token-interface):
-
-`initialize` · `balance` · `transfer` · `transfer_from` · `approve` · `allowance` · `mint` (admin only, max supply check) · `burn` · `name` · `symbol` · `decimals` · `total_supply`
-
-## Liquidity Pool (AMM)
-
-Constant-product AMM (x·y=k) for QUEST ↔ XLM:
-
-`swap` (fee + slippage protection) · `deposit` (mint LP tokens) · `withdraw` (burn LP tokens) · `get_reserves` · `get_spot_price`
 
 ## Quest Contract Functions
 
@@ -141,7 +146,7 @@ Draft ──▶ Active ──▶ InReview ──▶ Completed
 
 | Job | Commands |
 |-----|----------|
-| Smart Contracts | `cargo check` · `cargo test` · `cargo build --target wasm32-unknown-unknown --release` |
+| Smart Contracts | `cargo check` · `cargo test` · `cargo build --target wasm32v1-none --release` |
 | Backend | `npx tsc --noEmit` · `npx vitest --run` |
 | Frontend | `npm run build` |
 
