@@ -14,6 +14,10 @@ Organizers create quests with XLM rewards. Ambassadors complete them and get pai
 | **Demo Video** | *Coming soon* |
 | **Quest Contract** | [View on Stellar Explorer](https://stellar.expert/explorer/testnet/contract/CBYM56J6J36YSFYJYGR6FNOAUGPC5ARNS5UOWJBYWSGRZHJ4CR2KVM3D) |
 | **User Feedback** | [Google Sheets](https://docs.google.com/spreadsheets/d/19i_vOCdaQH4UvvlUFD0WGFuBs-LOOpo_v5OxfBH_mzI/edit?usp=sharing) |
+| **Security Checklist** | [SECURITY_CHECKLIST.md](./SECURITY_CHECKLIST.md) |
+| **Metrics Dashboard** | [Admin Dashboard](https://q2s.vercel.app/admin) (login as admin) |
+| **Monitoring Dashboard** | [Organizer Dashboard](https://q2s.vercel.app/organizer) (quest status donut chart, stats) |
+| **Community (Twitter)** | *Post your link here after tweeting* |
 
 ---
 
@@ -366,6 +370,86 @@ Single deployment with `vercel.json` multi-service:
 - Security headers (CSP, HSTS, X-Frame-Options)
 - Input validation (client + server + contract)
 - Admin registration blocked from API
+
+---
+
+## 30+ User Wallet Addresses (Verifiable on Stellar Explorer)
+
+| # | User Name | Wallet Address |
+|---|-----------|---------------|
+| 1 | Chandranshu Dutta | `GCVEBYUIUP4ULKWJMCJYAKLBLKD66T5BC2UV4O7WGLDYW7M42PJFVYUI` |
+| 2 | Ankan Dalui | `GASI3MYJJQFKZBORHRXRY6NZ62Q3VUCKY6UQYADGKXSUNE33GPK4IM7K` |
+| 3 | Indrajit Ari | `GBOCN6DMZYM6HH75NIKWHDGM3VCNAWVSHFHBFBZTWVSREED4PWYIM2GW` |
+| 4 | Srija Mondal | `GBM4PEHAVC2WWV6TKLFS7XOTESVE3FRQ6CZFXK2BUVENQWLVXP55I6X7` |
+| 5 | Ishan Das | `GAVCPCUQX5SC7G5PB5PIDHTYGFVX64NFMKXTGAQGHCIN2LHD46DXGZRA` |
+| 6 | Avishek Mondal | `GA5RGDUJLRXZ2COOA4WBV4PB3PO7GDVPBWNNZVXKSHWA6GQNS5WYK467` |
+| 7 | Shuvam Dutta | `GCZLWGE5GWUNARL2T5PTWT3ZZG5O7RX3LMDYMI3GY3GND3W6GJI4VW57` |
+| 8 | Uzzal Sardar | `GBOCBRTTEBMQIINLFZ32TDXI7AJEHTACPCGNZJTRHPPVCSQCP7CEPNCR` |
+| 9 | Tiyasa Mondal | `GCE2I346YQPMPXYRO24NWN436U62BTSKD3NLJKIYWWVHADOJZVTUPLVE` |
+| 10 | Sudipta Mondal | `GBK6G6FKZ2GIFAPGE642KIVD6Y7YPBSTIJ2SSWMOEZQNTJQMCURGDVXU` |
+| 11 | Shreya Das | `GB2L3EEIXGCDL4C6OJTPKM5G6CUCEE6CP5ZY33N5PJVXE5NRDBDAXI6R` |
+| 12 | Bristi Sen | `GAVN3Q2WYIMJHVOXHAWNOOETJNMN2YU5LR5XX74O4U2DY7IQWEWD5BYY` |
+| 13 | Debjit Kanjila | `GCWA5WZ7VNRZR65CFBFAAV2NOMEUGSWTOPNMEYSTVTLBOYWYUDPGTOJ2` |
+| 14 | Jishu Das | `GBMQAEPMUEYW O3XNAC7E4U5V5BP7H2JIHTKEQ5IOMPKXALB6RWN4KAJ3` |
+| 15 | Saikat Prasad Naru | `GD3M2KYUXM4RUPYMLPWLON64FVULJ5H2GQEJV4BJTRJWHZMX2FFUCKRB` |
+| 16 | Rishav Biswas | `GDWTEIWHAW D4DT63MWGYCNN3IJAISGNZOJHTNMRZVLK274KP3DBRGWU4` |
+| 17 | Rajdip Ghosh | `GDGOMRJOAGI2TB5NTV7JXRVIPZYBJKK326S2L2JPWVFS57YHI2GPDL4A` |
+| 18 | Shuvam Dutta | `GCOLGOAEI2DI253KWG4Y3L2ZJMQ7BPQYUL6IUDAAAQHUDZR5FXIWSQRY` |
+| 19 | Sounak Bhattacharya | `GB5CGHC2TCQQPIC56N4PVYJM4QZLAUTEKJXNHK7YNYJPGC5QZX3CG6MP` |
+| 20 | Most Soha Sabnam | `GDQVLEJXWNY37IEU6U2QVPVMMEZZB6NALB25U7KPGDRZY5AGI6OPX65H` |
+| 21 | Diganta Nath | `GB5CGHC2TCQQPIC56N4PVYJM4QZLAUTEKJXNHK7YNYJPGC5QZX3CG6MP` |
+| 22 | Sankhadip Maity | `GBLHOWQA6VESOEOGZEGTRFWZKRQGS5X6ZKMNJ263QKCYNMLN3G2S4VU3` |
+| 23 | ROHAN SHARMA | `GBOSF5NDZVZTVZNHLEHTVYPU4K2YGJVP54IRP5DWAVF22ZY2VJ2IN7P6` |
+| 24 | Sanchita Sardar | `GBRTC4UZXM2WH44REI3YH5QTEPZFUMPTE3IKQPWN65L5T4NWOSAGMHHW` |
+| 25 | SHOBHA BHUTRA | `GA3U3TP5EK533RGTOM6YR2JJ27YHPNZAP4LV3U6NITZ37FFO5ZYIUBA3` |
+| 26 | Shreya Das | `GBMDYVAIZ2F7SVSFPP2MK437SJLICGWA2AE2RJSIC2EYH6TTRKRC24WA` |
+| 27 | Rikita Roy | `GCF3I2EH5J2HYLRXHB6ASJWSH42B7HOTEFD57A7OCYF623ATWFIBJ45F` |
+| 28 | Tanish Kar | `GDZXZXZCEI6GTTUZLHKJSBKAVR2BOFJYF5NECA6LPS2VBDV7VAHSPBRJ` |
+| 29 | Mainak Kahali | `GCFIDZM2H3B5H4WVM33PY6NSVTZ4AUJQNS64URVEL57HDVJWIGBDIO3Z` |
+| 30 | DEBOSHREYA GANGULY | `GAY6K3GBJLQ4ATXTKVHT3VGBJZABXNEJLTXHTHKXPBWWOBLLDINBUN7R` |
+| 31 | ABHISHEK DAS | `GDZXZXZCEI6GTTUZLHKJSBKAVR2BOFJYF5NECA6LPS2VBDV7VAHSPBRJ` |
+| 32 | Sourav Saha | `GCB7IS67FIXBFYLEHVLBEPURSOZFHGUT63JXX7YL2SINTS353PIWPC2M` |
+| 33 | Puskar Adhikari | `GBUVT5TW6NW6TG4KBPYOEQT5DGCSO24DIJLRK263BK6USQW6WAQOMZDU` |
+| 34 | ROHAN SHARMA | `GAMFOJQAJJU6HP2X7VLAI5GM5PNBU4MZQYROIEPC4ZB2CX6RRY3BCNNA` |
+
+---
+
+## Advanced Feature: Fee Sponsorship (Gasless Transactions)
+
+Quest@Stellar implements **Fee Bump Transactions** to enable gasless transactions for ambassadors.
+
+**How it works:**
+- Ambassadors can submit work on-chain even with minimal XLM balance
+- The deployer/escrow account sponsors the transaction fee via Stellar's native `FeeBumpTransaction`
+- The inner transaction is signed by the user's Freighter wallet
+- The fee bump wraps it with a higher fee paid by the sponsor
+
+**Implementation:** [`frontend/src/lib/soroban.ts`](./frontend/src/lib/soroban.ts)
+- `hasEnoughForFees(address)` — checks if user has enough XLM for fees
+- `buildFeeBumpTransaction(innerTxXdr, sponsorAddress)` — wraps a signed tx in a fee bump
+- `submitFeeBumpTransaction(feeBumpXdr)` — submits the sponsored transaction
+
+**Proof:** The fee sponsorship functions are implemented in the Soroban client library and use Stellar SDK's `TransactionBuilder.buildFeeBumpTransaction()` — a native Stellar protocol feature.
+
+---
+
+## Data Indexing
+
+**Approach:** Quest@Stellar reads on-chain data directly from Soroban RPC via simulation calls, with a client-side caching layer for performance.
+
+**How it works:**
+1. `readContract()` in `soroban.ts` simulates contract calls to read state without submitting transactions
+2. `listQuests()` discovers quests using exponential probing + binary search on quest IDs, then fetches all in parallel batches of 5
+3. Results are cached in-memory with a 60-second TTL (`_questCache` in `quest-client.ts`)
+4. The quest counter is persisted in `localStorage` for instant startup on return visits
+5. Submissions are cached per-quest with a 30-second TTL
+
+**Endpoints:**
+- Quest list: `readContract(QUEST_CONTRACT_ID, 'get_quest', [id])` via Soroban RPC simulation
+- Submissions: `readContract(QUEST_CONTRACT_ID, 'get_submissions', [questId])` via Soroban RPC simulation
+- XLM balance: Horizon API `GET /accounts/{address}`
+
+**Dashboard:** The [Admin Dashboard](https://q2s.vercel.app/admin) aggregates on-chain quest data with off-chain user data to show platform-wide metrics.
 
 ---
 
