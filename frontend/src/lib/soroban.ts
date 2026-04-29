@@ -351,3 +351,72 @@ export async function getXlmBalance(address: string): Promise<number> {
     return 0;
   }
 }
+
+// ── Fee Sponsorship (Advanced Feature) ─────────────────────────────────
+//
+// Fee bump transactions allow a sponsor (the deployer/escrow account) to
+// pay the transaction fees on behalf of users. This enables gasless
+// transactions for ambassadors who may not have enough XLM for fees.
+//
+// How it works:
+// 1. User signs the inner transaction with their Freighter wallet
+// 2. The inner transaction is wrapped in a FeeBumpTransaction
+// 3. The sponsor account pays the fee
+//
+// In production, the fee bump would be done server-side where the sponsor's
+// secret key is available. For the testnet MVP, we demonstrate the pattern
+// by building fee bump transactions client-side.
+
+import { FeeBumpTransaction } from '@stellar/stellar-sdk';
+
+/**
+ * Check if an account has enough XLM to cover transaction fees.
+ * Returns true if balance > 1 XLM (minimum reserve + fee buffer).
+ */
+export async function hasEnoughForFees(address: string): Promise<boolean> {
+  const balance = await getXlmBalance(address);
+  return balance > 1;
+}
+
+/**
+ * Build a fee bump transaction that wraps an existing signed transaction.
+ * The sponsor pays the fee instead of the original signer.
+ *
+ * This is the core of the Fee Sponsorship advanced feature.
+ * In production, the sponsor would sign server-side.
+ *
+ * @param innerTxXdr - The signed inner transaction XDR
+ * @param sponsorAddress - The sponsor's public key (pays the fee)
+ * @returns The fee bump transaction XDR (needs sponsor signature)
+ */
+export function buildFeeBumpTransaction(
+  innerTxXdr: string,
+  sponsorAddress: string,
+): string {
+  const innerTx = TransactionBuilder.fromXDR(
+    innerTxXdr,
+    NETWORK_PASSPHRASE,
+  ) as InstanceType<typeof import('@stellar/stellar-sdk').Transaction>;
+
+  const feeBump = TransactionBuilder.buildFeeBumpTransaction(
+    sponsorAddress,
+    '200', // sponsor pays higher fee
+    innerTx,
+    NETWORK_PASSPHRASE,
+  );
+
+  return feeBump.toXDR();
+}
+
+/**
+ * Submit a fee-bumped transaction via Horizon.
+ * The fee bump transaction must be signed by the sponsor.
+ */
+export async function submitFeeBumpTransaction(
+  feeBumpXdr: string,
+): Promise<string> {
+  const horizon = getHorizon();
+  const tx = TransactionBuilder.fromXDR(feeBumpXdr, NETWORK_PASSPHRASE);
+  const result = await horizon.submitTransaction(tx);
+  return (result as { hash: string }).hash;
+}
