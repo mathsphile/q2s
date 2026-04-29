@@ -11,7 +11,7 @@ Organizers create quests with XLM rewards. Ambassadors complete them and get pai
 | | Link |
 |---|---|
 | **Live Demo** | [q2s.vercel.app](https://q2s.vercel.app) |
-| **Demo Video** | *Coming soon* |
+| **Demo Video** | [Link] (https://youtu.be/UlxHKQTmKyE) |
 | **Quest Contract** | [View on Stellar Explorer](https://stellar.expert/explorer/testnet/contract/CBYM56J6J36YSFYJYGR6FNOAUGPC5ARNS5UOWJBYWSGRZHJ4CR2KVM3D) |
 | **User Feedback** | [Google Sheets](https://docs.google.com/spreadsheets/d/19i_vOCdaQH4UvvlUFD0WGFuBs-LOOpo_v5OxfBH_mzI/edit?usp=sharing) |
 | **Security Checklist** | [SECURITY_CHECKLIST.md](./SECURITY_CHECKLIST.md) |
