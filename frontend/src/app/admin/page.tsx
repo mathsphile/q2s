@@ -48,6 +48,7 @@ export default function AdminDashboardPage() {
   const [users, setUsers] = useState<UserRecord[]>([]);
   const [quests, setQuests] = useState<OnChainQuest[]>([]);
   const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -64,12 +65,15 @@ export default function AdminDashboardPage() {
         if (usersRes.status === 'fulfilled') {
           const list = Array.isArray(usersRes.value) ? usersRes.value : usersRes.value.users ?? [];
           setUsers(list);
+        } else {
+          // API returned 401/403 — user is not admin
+          setAuthError(true);
         }
         if (questsRes.status === 'fulfilled') {
           setQuests(questsRes.value);
         }
       } catch {
-        // Show what we have
+        setAuthError(true);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -119,6 +123,24 @@ export default function AdminDashboardPage() {
             <Card key={i}><Skeleton height="h-4" width="w-24" /><Skeleton height="h-8" width="w-16" className="mt-2" /></Card>
           ))}
         </div>
+      </div>
+    );
+  }
+
+  if (authError) {
+    return (
+      <div className="space-y-8">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+          <p className="mt-1 text-sm text-gray-500">Platform overview</p>
+        </div>
+        <Card>
+          <div className="text-center py-12">
+            <p className="text-lg font-medium text-gray-900">Admin access required</p>
+            <p className="mt-2 text-sm text-gray-500">Please log in with an admin account to view platform statistics.</p>
+            <Link href="/login"><Button variant="primary" className="mt-4">Sign In</Button></Link>
+          </div>
+        </Card>
       </div>
     );
   }
