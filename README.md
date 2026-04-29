@@ -30,7 +30,7 @@ Organizers create quests with XLM rewards. Ambassadors complete them and get pai
 
 ### Ambassador Dashboard
 ![Ambassador Dashboard](docs/screenshots/ambassador-dashboard.png)
-| **Community (Twitter)** | *Post your link here after tweeting* |
+
 
 ---
 
