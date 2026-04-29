@@ -17,15 +17,84 @@ Organizers create quests with XLM rewards. Ambassadors complete them and get pai
 
 ---
 
-## User Wallet Addresses (Testnet)
+## Level 5: Initial Users & Feedback
 
-| # | Role | Wallet Address | Explorer |
-|---|------|---------------|----------|
-| 1 | Deployer/Escrow | `GAKAWNAR76U2MPDKUZXPYA6S6S4HOTVIXIRXIEKXJXVNA4XUIHGDSLYY` | [View](https://stellar.expert/explorer/testnet/account/GAKAWNAR76U2MPDKUZXPYA6S6S4HOTVIXIRXIEKXJXVNA4XUIHGDSLYY) |
-| 2 | Organizer | `GBDZ6AVIW7YQHKQJMQTM45XGPTG5J4COAEORJOKQAGCDK67Y3I6UKTFKD` | [View](https://stellar.expert/explorer/testnet/account/GBDZ6AVIW7YQHKQJMQTM45XGPTG5J4COAEORJOKQAGCDK67Y3I6UKTFKD) |
-| 3 | Ambassador | `GCSE24PAD2C5PSCMQTM45XGPTG5J4COAEORJOKQAGCDK67Y3I6UKTFKD` | [View](https://stellar.expert/explorer/testnet/account/GCSE24PAD2C5PSCMQTM45XGPTG5J4COAEORJOKQAGCDK67Y3I6UKTFKD) |
-| 4 | Ambassador | `GA3K3MBRD3NDSP464QYXKGQQMBRD5XAFJSQJ4RQ4CFUCJSG3N2` | [View](https://stellar.expert/explorer/testnet/account/GA3K3MBRD3NDSP464QYXKGQQMBRD5XAFJSQJ4RQ4CFUCJSG3N2) |
-| 5 | Organizer | `GDVSSFT7BQNB4NPH6E5SNEDI76HUHMN3NK4YMOCOQWEDVQ4EO6AJPCDE` | [View](https://stellar.expert/explorer/testnet/account/GDVSSFT7BQNB4NPH6E5SNEDI76HUHMN3NK4YMOCOQWEDVQ4EO6AJPCDE) |
+### Table 1: First 5 Users
+
+| # | User Name | User Email | User Wallet Address |
+|---|-----------|-----------|-------------------|
+| 1 | Chandranshu Dutta | chandranshudutta93@gmail.com | `GCVEBYUIUP4ULKWJMCJYAKLBLKD66T5BC2UV4O7WGLDYW7M42PJFVYUI` |
+| 2 | Ankan Dalui | adalui260@gmail.com | `GASI3MYJJQFKZBORHRXRY6NZ62Q3VUCKY6UQYADGKXSUNE33GPK4IM7K` |
+| 3 | Indrajit Ari | indrajit.ari.440@gmail.com | `GBOCN6DMZYM6HH75NIKWHDGM3VCNAWVSHFHBFBZTWVSREED4PWYIM2GW` |
+| 4 | Srija Mondal | srijam2004@gmail.com | `GBM4PEHAVC2WWV6TKLFS7XOTESVE3FRQ6CZFXK2BUVENQWLVXP55I6X7` |
+| 5 | Ishan Das | ishan.100@gmail.com | `GAVCPCUQX5SC7G5PB5PIDHTYGFVX64NFMKXTGAQGHCIN2LHD46DXGZRA` |
+
+### Table 2: User Feedback Implementation (Level 5)
+
+| User Name | User Email | Wallet Address | Feedback | Commit ID |
+|-----------|-----------|---------------|----------|-----------|
+| Chandranshu Dutta | chandranshudutta93@gmail.com | `GCVEBYUI...FVYUI` | "no" (satisfied) | `082cb47` |
+| Ankan Dalui | adalui260@gmail.com | `GASI3MYJ...IM7K` | "NA" — stability rated Fair | `80c05c6` (SSL fix for production stability) |
+| Indrajit Ari | indrajit.ari.440@gmail.com | `GBOCN6DM...M2GW` | "ui can be better" | `54a08ba` (Landing page redesign with motion graphics) |
+| Srija Mondal | srijam2004@gmail.com | `GBM4PEHA...I6X7` | "n/a" (all Excellent) | — (no changes needed) |
+| Ishan Das | ishan.100@gmail.com | `GAVCPCUQ...GZRA` | "Add more bounties" | `3edbd42` (Organizer dashboard mockup on landing page) |
+
+---
+
+## Level 6: Scaling to 20+ Users & Feedback
+
+### All User Feedback (33 users)
+
+| # | User Name | Email | Wallet Address | Rating | UI | Speed | Features | Stability | Feedback | Recommend |
+|---|-----------|-------|---------------|--------|-----|-------|----------|-----------|----------|-----------|
+| 1 | Chandranshu Dutta | chandranshudutta93@gmail.com | `GCVEBYUI...FVYUI` | 10 | Good | Good | Good | Very Good | no | 5 |
+| 2 | Ankan Dalui | adalui260@gmail.com | `GASI3MYJ...IM7K` | 7 | Good | Good | Good | Fair | NA | 4 |
+| 3 | Indrajit Ari | indrajit.ari.440@gmail.com | `GBOCN6DM...M2GW` | 9 | Very Good | Good | Very Good | Good | ui can be better | 3 |
+| 4 | Srija Mondal | srijam2004@gmail.com | `GBM4PEHA...I6X7` | 10 | Excellent | Excellent | Excellent | Excellent | n/a | 5 |
+| 5 | Ishan Das | ishan.100@gmail.com | `GAVCPCUQ...GZRA` | 7 | Very Good | Fair | Good | Good | Add more bounties | 4 |
+| 6 | Avishek Mondal | avi.433@gmail.com | `GA5RGDUJ...K467` | 8 | Good | Good | Very Good | Good | Add user profile | 4 |
+| 7 | Shuvam Dutta | shuvamd172@gmail.com | `GCZLWGE5...VW57` | 10 | Excellent | Excellent | Excellent | Excellent | good quest platform | 5 |
+| 8 | Uzzal Sardar | sardaruzzal12@gmail.com | `GBOCBRTT...NCRE` | 8 | Good | Fair | Very Good | Very Good | Add More quest | 4 |
+| 9 | Tiyasa Mondal | montiya@gmail.com | `GCE2I346...PLVE` | 7 | Good | Very Good | Good | Very Good | all good | 4 |
+| 10 | Sudipta Mondal | sudimondal43@gmail.com | `GBK6G6FK...DVXU` | 10 | Excellent | Excellent | Excellent | Excellent | ok | 5 |
+| 11 | Shreya Das | shreyaadas777@gmail.com | `GB2L3EEI...XI6R` | 9 | Very Good | Good | Excellent | Very Good | no | 3 |
+| 12 | Bristi Sen | bristisen.acm@gmail.com | `GAVN3Q2W...5BYY` | 7 | Good | Excellent | Excellent | Excellent | Add Oauth | 4 |
+| 13 | Debjit Kanjila | debjitkanjilal41@gmail.com | `GCWA5WZ7...TOJ2` | 8 | Good | Fair | Good | Very Good | no | 3 |
+| 14 | Jishu Das | dass456890@gmail.com | `GBMQAEPM...KAJ3` | 6 | Very Good | Good | Very Good | Very Good | Add Profile section | 2 |
+| 15 | Saikat Prasad Naru | saikatnaru004@gmail.com | `GD3M2KYU...KRB9` | 9 | Good | Fair | Good | Good | ui can be more simple | 3 |
+| 16 | Rishav Biswas | biswasrishav68@gmail.com | `GDWTEIWHAW...WU4` | 10 | Very Good | Good | Very Good | Good | loading time is high | 3 |
+| 17 | Rajdip Ghosh | rajdipghosh24680@gmail.com | `GDGOMRJO...DL4A` | 6 | Good | Very Good | Good | Very Good | no | 4 |
+| 18 | Shuvam Dutta | shuvam.dutta.fiem.cse23@teamfuture.in | `GCOLGOAE...SQRY` | 7 | Very Good | Good | Very Good | Good | no | 3 |
+| 19 | Sounak Bhattacharya | bhattacharyasounak259@gmail.com | `GB5CGHC2...6MP6` | 6 | Good | Very Good | Good | Very Good | more animations in ui | 4 |
+| 20 | Most Soha Sabnam | sohasabnam59@gmail.com | `GDQVLEJX...X65H` | 8 | Very Good | Good | Very Good | Good | add AI | 4 |
+| 21 | Diganta Nath | nathdiganta267@gmail.com | `GB5CGHC2...6MP9` | 9 | Good | Very Good | Good | Very Good | no | 4 |
+| 22 | Sankhadip Maity | sankhadip.maity.fiem.cse24@teamfuture.in | `GBLHOWQA...VU38` | 8 | Very Good | Good | Very Good | Good | none | 3 |
+| 23 | ROHAN SHARMA | rohankrsharma786@gmail.com | `GBOSF5ND...7P69` | 9 | Good | Very Good | Good | Very Good | ok | 3 |
+| 24 | Sanchita Sardar | sanchita.sardar.fiem.cse23@teamfuture.in | `GBRTC4UZ...MHHW` | 8 | Good | Good | Good | Good | perfect | 3 |
+| 25 | SHOBHA BHUTRA | shobha.bhutra.fiem.cse23@teamfuture.in | `GA3U3TP5...UBA3` | 8 | Very Good | Very Good | Very Good | Very Good | add User nft | 5 |
+| 26 | Shreya Das | shreya.das1.fiem.cse23@teamfuture.in | `GBMDYVAI...24WA` | 9 | Good | Fair | Good | Fair | create own token | 4 |
+| 27 | Rikita Roy | rikitaroy21@gmail.com | `GCF3I2EH...45F7` | 7 | Very Good | Very Good | Very Good | Very Good | all ok | 2 |
+| 28 | Tanish Kar | tanishkar26@gmail.com | `GDZXZXZC...PBRJ` | 9 | Very Good | Very Good | Very Good | Very Good | working fine | 5 |
+| 29 | Mainak Kahali | mainakkahali7@gmail.com | `GCFIDZM2...IO3Z` | 9 | Good | Fair | Good | Fair | none | 3 |
+| 30 | DEBOSHREYA GANGULY | deboshreya0603@gmail.com | `GAY6K3GB...N7R8` | 8 | Very Good | Good | Very Good | Good | no | 3 |
+| 31 | ABHISHEK DAS | abhishek.das.fiem.csds24@teamfuture.in | `GDZXZXZC...PBRJ` | 9 | Very Good | Very Good | Very Good | Very Good | good enough | 3 |
+| 32 | Sourav Saha | sourav.saha.fiem.csds24@teamfuture.in | `GCB7IS67...C2M8` | 8 | Good | Good | Good | Good | fine | 4 |
+| 33 | Puskar Adhikari | apuskar773@gmail.com | `GBUVT5TW...ZDU8` | 8 | Good | Fair | Good | Fair | no | 4 |
+| 34 | ROHAN SHARMA | rohankrsharma786@gmail.com | `GAMFOJQA...CNNA` | 8 | Very Good | Good | Very Good | Good | no | 4 |
+
+### Level 6: Feedback Implementation
+
+| Feedback Theme | Users | Action Taken | Commit ID |
+|---------------|-------|-------------|-----------|
+| "ui can be better" / "ui can be more simple" | Indrajit Ari, Saikat Prasad Naru | Redesigned landing page with clean white theme, cross-paper grid, motion graphics | `54a08ba` |
+| "loading time is high" | Rishav Biswas | Added quest caching (60s TTL), localStorage counter persistence, batched RPC calls | `0aa0cb7` |
+| "more animations in ui" | Sounak Bhattacharya | Added floating particles, pulse rings, currency symbols, stagger animations | `54a08ba` |
+| "Add user profile" | Avishek Mondal | Added organizer profile fields (org name, size, country, phone, website) in registration | `e81e14a` |
+| "Add more bounties" / "Add More quest" | Ishan Das, Uzzal Sardar | Added organizer dashboard with quest creation flow and donut chart | `3edbd42` |
+| "Add Profile section" | Jishu Das | Added full organizer registration form with company details | `e81e14a` |
+| "Add Oauth" | Bristi Sen | Planned for future release — currently using email/password + Freighter wallet |  |
+| "add AI" | Most Soha Sabnam | Planned for future release — AI-powered quest matching |  |
+| "add User nft" / "create own token" | SHOBHA BHUTRA, Shreya Das | QUEST token (SEP-41) already deployed at `CDVSSFT7...AJPCDE` | `d74488b` |
 
 ---
 
